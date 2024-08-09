@@ -73,9 +73,5 @@ def main():
     stack.print_stack()
 
 
-
-
-
-
 if __name__ == '__main__':
     main()
