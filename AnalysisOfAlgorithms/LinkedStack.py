@@ -3,7 +3,7 @@
 class Node:
     string: str
     next_node: any
-class StackOfStrings:
+class LinkedStack:
 
     first_node = None
 
@@ -28,7 +28,7 @@ class StackOfStrings:
 
 def main():
 
-    stack = StackOfStrings()
+    stack = LinkedStack()
     print(stack.isEmpty())
     stack.push("5")
     stack.push("4")
