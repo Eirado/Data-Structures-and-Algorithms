@@ -2,7 +2,7 @@
 
 class Node:
     item: str
-    next_node: any
+    next_node: any #reference
 
 class LinkedQueue:
 
@@ -20,12 +20,12 @@ class LinkedQueue:
             self.first_node = self.last_node
             return
 
-        old_node.next_node = self.last_node
+        old_node.next_node = self.last_node # the old last always points the current last
 
     def dequeue(self):
 
         dequeued = self.first_node.item
-        self.first_node = self.first_node.next_node
+        self.first_node = self.first_node.next_node # move the reference from current first to the second in queue
         print(dequeued)
         return dequeued
 
