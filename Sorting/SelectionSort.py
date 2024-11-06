@@ -1,6 +1,6 @@
 
 
-class Selection:
+class Selection: # O(Nˆ2)/4
 
     def sort(self, l: list):
 
@@ -30,7 +30,7 @@ class Selection:
 def main():
     selection = Selection()
 
-    selection.sort([1,2,42,14,553,2,5,2,34,51,52,124,])
+    selection.sort([1,2,42,14,553,2,5,2,34,51,52,124,0])
 
 
 if __name__ == '__main__':
