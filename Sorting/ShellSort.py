@@ -5,7 +5,7 @@ class Shell:
         gap = 1  # if start with 0 it will work but is probably less efficient
 
         while gap < N / 3:
-            gap = 3 * gap + 1 # for the 3x + 1  logic 
+            gap = 3 * gap + 1 # for the 3x + 1  logic
 
         while gap >= 1:
 
