@@ -9,7 +9,7 @@ class MergeSort:
 
        while sz < N:
 
-           for lo in range(0, N - sz, 2 * sz):
+           for lo in range(0, N - sz, 2 * sz): # finding the mid and hi is hard
                mid = lo + sz - 1
                hi = min(lo + 2 * sz - 1, N - 1)
                self.merge(l, aux, lo, mid, hi)
@@ -18,7 +18,7 @@ class MergeSort:
 
     def merge(self, l: list[int], aux: list[int], lo: int, mid: int, hi: int):
 
-        aux[lo:hi + 1] = l[lo:hi + 1]
+        aux[lo:hi + 1] = l[lo:hi + 1] # this is important when sz is 2, in the second round of the while, which is merging 4 elements
         i = lo
         j = mid + 1
 
@@ -44,7 +44,7 @@ class MergeSort:
 def main():
 
     merge = MergeSort()
-    test_list = [5, 5, 7, 13, 18, 1, 3, 5, 18, 20]
+    test_list = [5, 1, 7, 13, 18, 1, 3, 5, 18, 20]
 
     merge.sort(test_list)
 
