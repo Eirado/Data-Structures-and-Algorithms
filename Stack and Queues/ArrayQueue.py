@@ -27,6 +27,7 @@ class ArrayQueue:
 
     def enqueue(self, item: int):
 
+
         if self.tail == len(self.array):
             self.resize(len(self.array) * 2)
 
