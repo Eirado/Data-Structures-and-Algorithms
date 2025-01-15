@@ -1,55 +1,64 @@
 from typing import TypeVar, Generic, Optional
 
-K = TypeVar('K')
+T = TypeVar('T')
 V = TypeVar('V')
 
-class Node(Generic[K, V]):
-    key: any
-    value: any
-    next_node: any
+class Node(Generic[T,V]):
+    key: T
+    value: V
+    next_node = None
 
-    def __init__(self, key: any, value: any, next_node: Optional['Node[K, V]'] = None):
+    def __init__(self, key, value):
         self.key = key
         self.value = value
-        self.next_node = next_node
 
 
-class SymbolTable(Generic[K, V]):
-    def __init__(self):
-        self.first: Optional[Node[K, V]] = None
+class SymbolTableLinkedList(Generic[T,V]):
+    first_node: Node[T,V] = None
 
-    def get(self, key: any) -> any:
+    def insert(self, key, value):
 
-        current = self.first
+        current_node = self.first_node
 
-        while current is not None:
+        while current_node is not None:
 
-            if key == current.key:
-                return current.value
+            if current_node.key == key:
+                current_node.value = value
+                return
 
-            current = current.next_node
+            current_node = current_node.next_node
 
+        new_node: Node[T,V] = Node(key, value)
+        new_node.next_node = self.first_node
+        self.first_node = new_node
+
+    def search(self, key):
+
+        current_node = self.first_node
+
+        while current_node is not None:
+
+            if current_node.key == key:
+                print(current_node.value)
+                return current_node.value
+
+            current_node = current_node.next_node
+
+        print('Not found')
         return None
 
-    def put(self, key: any, value: any):
-
-        x = self.first
-
-        while x is not None:
-            if key == x.key:
-                x.value = value
-                return
-            x = x.next_node
-
-        self.first = Node(key, value, self.first)
-
-
 def main():
-    symbol_table = SymbolTable()
 
-    symbol_table.put('first', 1)
-    print(symbol_table.get('first'))
+    symbol_table = SymbolTableLinkedList[int, str]()
+    symbol_table.insert(1, 'A')
+    symbol_table.search(1)
+    symbol_table.insert(2, 'B')
+    symbol_table.insert(1, 'Z')
+    symbol_table.insert(3, 'C')
 
+    symbol_table.search(1)
+    symbol_table.search(3)
+    symbol_table.search(1323)
 
 if __name__ == '__main__':
     main()
