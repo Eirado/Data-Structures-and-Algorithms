@@ -5,15 +5,13 @@ class HeapSort:
 
         self.array = l
 
-
     def sort(self):
 
         N = len(self.array) - 1
-        for i in range(N // 2, 0, -1):
-            self.sink(i, N)
+        for i in range(N // 2, 0, -1): # go to every subheap
+            self.sink(i, N) # puts it in the heap order which has the largest item first in the array
 
-        print(self.array)
-        while N > 1:
+        while N > 1: # start puting the greater value in its end position, keep track so it does not sink that much and scuff the last position
             self.exch(1, N)
             N -= 1
             self.sink(1, N)
