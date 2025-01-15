@@ -24,7 +24,7 @@ class SymbolTable(Generic[K, V]):
 
         while current is not None:
 
-            if key == current.key:dasdasdsa
+            if key == current.key:
                 return current.value
 
             current = current.next_node
