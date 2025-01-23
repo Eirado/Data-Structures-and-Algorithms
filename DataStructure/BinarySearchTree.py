@@ -84,14 +84,14 @@ class BST:
             node.left = self._delete(node.left, key)
         elif node.key < key:
             node.right = self._delete(node.right, key)
-        else: #
+        else:
             if node.left is None and node.right is None:
                 node = None
             elif node.left is None and node.right is not None:
                 node = node.right
             elif node.right is None and node.left is not None:
                 node = node.left
-            else:
+            else: #remove and substitute with the smallest node from the right subtree
 
                 smallest_node: Node = node.right
 
@@ -102,7 +102,18 @@ class BST:
                 node.value = smallest_node.value
 
                 smallest_node = self._delete(smallest_node, smallest_node.key)
-
+            #OR
+            # else: # #remove and substitute with the largest node from the left subtree
+            #
+            #     largest_node: Node = node.left
+            #
+            #     while largest_node.right is not None:
+            #         largest_node = largest_node.right
+            #
+            #     node.key = largest_node.key
+            #     node.value = largest_node.value
+            #
+            #     largest_node = self._delete(largest_node, largest_node.key)
 
 
 
