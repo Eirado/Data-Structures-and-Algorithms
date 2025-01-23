@@ -18,20 +18,25 @@ class BST:
 
     root: Node = None
 
+
     def get(self, key):
 
-        current_node = self.root
-        while current_node is not None:
-            if current_node.key > key:
-                current_node = current_node.left
-                continue
-            elif current_node.key < key:
-                current_node = current_node.right
-                continue
+
+        return self._get(self.root, key)
+
+    def _get(self, node: Node, key):
+
+        while node is not None:
+            if node.key > key:
+                node = self._get(node.left, key)
+            elif node.key < key:
+                node = self._get(node.right, key)
             else:
-                return current_node.value
+                return node
 
         return None
+
+
 
     def put(self, key, value):
         self.root = self._put(self.root, key, value)
@@ -59,6 +64,30 @@ class BST:
 
         print(x.key, x.value)
         return x.key
+
+
+    # def delete(self, key):
+    #     return self._delete(self.root, key)
+    #
+    # def _delete(self, node, key):
+    #
+    #
+    #
+    #     while node is not None:
+    #
+    #         if node.key > key:
+    #             node = node.left
+    #         elif node.key < key:
+    #             node = node.right
+    #         else:
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    #      return None
 
     def _floor(self, node, key):
 
@@ -88,7 +117,7 @@ def main():
     tree.put('R', 6)
     tree.put('H', 8)
     tree.put('M', 10)
-    print(tree.get('M'))
+    print(tree.get('M').value)
     tree.floor('N')
 
 if __name__ == '__main__':
