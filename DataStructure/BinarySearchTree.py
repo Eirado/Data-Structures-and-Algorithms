@@ -1,23 +1,20 @@
+from enum import Enum
 from typing import Optional
 
 
 class Node:
-
     key: any
     value: any
     left = None
     right = None
 
-
     def __init__(self, key, value):
-
         self.key = key
         self.value = value
 
+
 class BST:
-
     root: Node = None
-
 
     def get(self, key):
 
@@ -28,16 +25,15 @@ class BST:
 
     def _get(self, node: Node, key):
 
-            if node is None:
-                return None
+        if node is None:
+            return None
 
-            if node.key > key:
-                return self._get(node.left, key)
-            elif node.key < key:
-                return self._get(node.right, key)
-            else:
-                return node.value
-
+        if node.key > key:
+            return self._get(node.left, key)
+        elif node.key < key:
+            return self._get(node.right, key)
+        else:
+            return node.value
 
     def put(self, key, value):
         self.root = self._put(self.root, key, value)
@@ -56,7 +52,6 @@ class BST:
 
         return node
 
-
     def floor(self, k):
 
         x = self._floor(self.root, k)
@@ -65,7 +60,6 @@ class BST:
 
         print(x.key, x.value)
         return x.key
-
 
     def delete(self, key):
 
@@ -91,7 +85,7 @@ class BST:
                 node = node.right
             elif node.right is None:
                 node = node.left
-            else: #remove and substitute with the smallest node from the right subtree
+            else:  #remove and substitute with the smallest node from the right subtree
 
                 smallest_node: Node = node.right
 
@@ -125,7 +119,7 @@ class BST:
         if key == node.key:
             return node
 
-        if node.key > key: # have to keep going to the left until you find a node that is less than the original k
+        if node.key > key:  # have to keep going to the left until you find a node that is less than the original k
             return self._floor(node.left, key)
 
         t = self._floor(node.right, key)
@@ -134,9 +128,57 @@ class BST:
         else:
             return node
 
+    class OrderBST(Enum):
+
+        preorder = 1
+        inorder = 2
+        postorder = 3
+        levelorder = 4
+
+    preorder_results = []
+    inorder_results = []
+    postorder_results = []
+    def preorder(self, node):
+        if node is None:
+            return
+
+        self.preorder_results.append(node.key)
+        self.preorder(node.left)
+        self.preorder(node.right)
+
+    def inorder(self, node):
+
+        if node is None:
+            return
+
+        self.inorder(node.left)
+        self.inorder_results.append(node.key)
+        self.inorder(node.right)
+
+    def postorder(self, node):
+
+        if node is None:
+            return
+
+        self.postorder(node.left)
+        self.postorder(node.right)
+        self.postorder_results.append(node.key)
+
+
+    def choose_oder(self, n: int):
+        if n == 1:
+            self.preorder(self.root)
+        elif n == 2:
+            self.inorder(self.root)
+        elif n == 3:
+            self.postorder(self.root)
+        else:
+            print("Default case executed")
+
+
 
 def main():
-    tree = BST() # the efficiency will depend on the order that the keys comes in, this is not taking balancing in consideration
+    tree = BST()  # the efficiency will depend on the order that the keys comes in, this is not taking balancing in consideration
     tree.put(7, 'S')
     tree.put(5, 'X')
     tree.put(20, 'E')
@@ -155,11 +197,19 @@ def main():
     tree.put(15, 'M')
     tree.put(31, 'M')
 
-    print(tree.get(7))
-    tree.floor(29)
-    tree.delete(7)
-    print(tree.get(7))
-    print(tree.get(14))
+    # print(tree.get(7))
+    # tree.floor(29)
+    # tree.delete(7)
+    # print(tree.get(7))
+    # print(tree.get(14))
+
+    tree.choose_oder(tree.OrderBST.preorder.value)
+    tree.choose_oder(tree.OrderBST.inorder.value)
+    tree.choose_oder(tree.OrderBST.postorder.value)
+
+    print(tree.preorder_results)
+    print(tree.inorder_results)
+    print(tree.postorder_results)
 
 if __name__ == '__main__':
     main()
