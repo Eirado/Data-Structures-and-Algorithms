@@ -138,6 +138,7 @@ class BST:
     preorder_results = []
     inorder_results = []
     postorder_results = []
+    levelorder_results = []
     def preorder(self, node):
         if node is None:
             return
@@ -163,6 +164,16 @@ class BST:
         self.postorder(node.left)
         self.postorder(node.right)
         self.postorder_results.append(node.key)
+
+    def level_order(self, node):
+
+
+        if node is None:
+            return
+        
+        self.levelorder_results.append([node.left, node.right])
+
+
 
 
     def choose_oder(self, n: int):
