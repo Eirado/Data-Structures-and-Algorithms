@@ -1,6 +1,42 @@
 from enum import Enum
 from typing import Optional
 
+class Queue_node:
+
+    value: any
+    next_node = None
+
+    def __init__(self, value, next_node=None):
+        self.value = value
+
+class Queue:
+
+    first_node: Queue_node = None
+    last_node: Queue_node = None
+
+    def enqueue(self, value):
+
+        if value is None:
+            return
+
+        old_node = self.last_node
+
+        self.last_node = Queue_node(value)
+
+        if self.first_node is None:
+            self.first_node = self.last_node
+            return
+
+        old_node.next_node = self.last_node
+
+    def dequeue(self):
+        dequeued = self.first_node.value
+        self.first_node = self.first_node.next_node
+        return dequeued
+
+    def is_empty(self):
+        return self.first_node is None
+
 
 class Node:
     key: any
@@ -139,53 +175,72 @@ class BST:
     inorder_results = []
     postorder_results = []
     levelorder_results = []
-    def preorder(self, node):
+
+    def _preorder(self, node):
         if node is None:
             return
 
         self.preorder_results.append(node.key)
-        self.preorder(node.left)
-        self.preorder(node.right)
+        self._preorder(node.left)
+        self._preorder(node.right)
 
-    def inorder(self, node):
+    def _inorder(self, node):
 
         if node is None:
             return
 
-        self.inorder(node.left)
+        self._inorder(node.left)
         self.inorder_results.append(node.key)
-        self.inorder(node.right)
+        self._inorder(node.right)
 
-    def postorder(self, node):
+    def _postorder(self, node):
 
         if node is None:
             return
 
-        self.postorder(node.left)
-        self.postorder(node.right)
+        self._postorder(node.left)
+        self._postorder(node.right)
         self.postorder_results.append(node.key)
 
-    def level_order(self, node):
+
+    def _level_order(self, node):
+
+        queue = Queue()
+        queue.enqueue(node)
+
+        self.__level_order(queue)
 
 
-        if node is None:
+    def __level_order(self, queue):
+
+        if queue.is_empty():
             return
-        
-        self.levelorder_results.append([node.left, node.right])
+
+        node = queue.dequeue()
+
+        self.levelorder_results.append(node.key)
+
+        if node.left:
+            queue.enqueue(node.left)
+        if node.right:
+             queue.enqueue(node.right)
 
 
+        self.__level_order(queue)
 
 
     def choose_oder(self, n: int):
         if n == 1:
-            self.preorder(self.root)
+            self._preorder(self.root)
         elif n == 2:
-            self.inorder(self.root)
+            self._inorder(self.root)
         elif n == 3:
-            self.postorder(self.root)
+            self._postorder(self.root)
+        elif n == 4:
+            self._level_order(self.root)
+
         else:
             print("Default case executed")
-
 
 
 def main():
@@ -217,10 +272,12 @@ def main():
     tree.choose_oder(tree.OrderBST.preorder.value)
     tree.choose_oder(tree.OrderBST.inorder.value)
     tree.choose_oder(tree.OrderBST.postorder.value)
+    tree.choose_oder(tree.OrderBST.levelorder.value)
 
     print(tree.preorder_results)
     print(tree.inorder_results)
     print(tree.postorder_results)
+    print(tree.levelorder_results)
 
 if __name__ == '__main__':
     main()

@@ -8,6 +8,7 @@ class LinkedQueue:
 
     first_node = None
     last_node = None
+
     def enqueue(self, item: str):
 
         old_node = self.last_node
