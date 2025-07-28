@@ -16,6 +16,7 @@ class QuickSort:
         j = self.partition(l, lo, hi)
         self.__recursive_sort(l, lo, j - 1)
         self.__recursive_sort(l, j + 1, hi)
+
     def partition(self, l: list[int], lo, hi):
 
         p = l[lo]  # pivot
